@@ -24,21 +24,24 @@ Your program must preserve the case of each letter in p.
 
 int main(int argc, string argv[]) {
     
+    //make sure #of arguments inputted is 2 otherwise ends script
     if (argc != 2){
         printf("Usage: ./vigenere k");
         return 1;
     }
     
+    //checks if the second argument contains anything other than characters 
     for (int i = 0, n = strlen(argv[1]); i < n, i++){
         if (isalpha(argv[1][i]) == false){
             printf("Invalid input; input must only contain letters");
             return 1;
         }
     }
-    
+    //asks user for string to be enciphered    
     printf("plaintext: ");
     string text = get_string();
     
+    //stuck here, trying to figure out how to cipher the text, requires loop to iterate each character as a int value to apply to each ASCII value of the plaintext string
     int encipheredtext = 0;
     for (int j = 0, k = 0 length = strlen(text); j < length; j++){
         
