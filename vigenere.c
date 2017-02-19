@@ -1,21 +1,3 @@
-/*
-
-Implement your program in a file called vigenere.c in a directory called vigenere.
-
-Your program must accept a single command-line argument: a keyword, k, composed entirely of alphabetical characters.
-
-If your program is executed without any command-line arguments, with more than one command-line argument, or with one command-line argument that contains any non-alphabetical character, your program should print an error (of your choice) and exit immediately, with main returning 1 (thereby signifying an error).
-
-Otherwise, your program must proceed to prompt the user for a string of plaintext, p, (as by a prompt for plaintext:) which it must then encrypt according to Vigenère’s cipher with k, ultimately printing the result (prepended with ciphertext: and ending with a newline) and exiting, with main returning 0.
-
-With respect to the characters in k, you must treat A and a as 0, B and b as 1, …​ , and Z and z as 25.
-
-Your program must only apply Vigenère’s cipher to a character in p if that character is a letter. All other characters (numbers, symbols, spaces, punctuation marks, etc.) must be outputted unchanged. Moreover, if your code is about to apply the jth character of k to the ith character of p, but the latter proves to be a non-alphabetical character, you must wait to apply that jth character of k to the next alphabetical character in p; you must not yet advance to the next character in k.
-
-Your program must preserve the case of each letter in p.
-
-*/
-
 #include <cs50.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,26 +6,62 @@ Your program must preserve the case of each letter in p.
 
 int main(int argc, string argv[]) {
     
-    //make sure #of arguments inputted is 2 otherwise ends script
-    if (argc != 2){
-        printf("Usage: ./vigenere k");
-        return 1;
-    }
-    
-    //checks if the second argument contains anything other than characters 
-    for (int i = 0, n = strlen(argv[1]); i < n, i++){
-        if (isalpha(argv[1][i]) == false){
-            printf("Invalid input; input must only contain letters");
-            return 1;
-        }
-    }
-    //asks user for string to be enciphered    
-    printf("plaintext: ");
-    string text = get_string();
-    
-    //stuck here, trying to figure out how to cipher the text, requires loop to iterate each character as a int value to apply to each ASCII value of the plaintext string
-    int encipheredtext = 0;
-    for (int j = 0, k = 0 length = strlen(text); j < length; j++){
-        
-    }
+	//make sure #of arguments inputted is 2 otherwise ends script
+	
+	if (argc != 2){
+		printf("Usage: ./vigenere k");
+		return 1;
+	}
+	
+	//checks if the second argument contains anything other than characters 
+	for (int i = 0, n = strlen(argv[1]); i < n; i++){
+		if (isalpha(argv[1][i]) == false) {
+			printf("Invalid input; input must only contain letters");
+			return 1;
+		}
+	}
+
+	//asks user for string to be enciphered    
+	printf("plaintext: ");
+	string text = GetString();
+	
+	printf("ciphertext: ");
+	//length of inputted key phrase
+	int length = strlen(argv[1]);
+
+	//loop over plaintext
+	for (int i = 0, j = 0, cipher = 0, n = strlen(text); i < n; i++) {
+		//get character to iterate
+		char position = text[i];
+		//get character to iterate
+		char key = argv[1][j % length];
+		
+		//convert key to alphabetical index
+		if (isupper(key)){
+			key -= 65;
+		}
+		
+		if (islower(key)){
+			key -= 97;
+		}
+		
+		//add the position with the key convert to alphabetical index add and then revert back
+		//j++ to get to next character in key string
+		if (isupper(position)){
+			cipher = (position - 65 + key) % 26 + 65;
+			j++;
+		}
+		
+		else if (islower(position)){
+			cipher = (position - 97 + key) % 26 + 97;
+			j++;
+		}
+		
+		//if string contains anything other than characters
+		else {
+			cipher = position;
+		}
+		printf("%c", cipher);
+	}
+	printf("\n");
 }
