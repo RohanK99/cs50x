@@ -218,21 +218,18 @@ void draw(void)
  */
 bool move(int tile)
 {
-    //iterate through board to find tile
-    for (int i = 0; i < d; i++){
-        for(int j = 0; j < d; j++){
-            if (tile == board[i][j]){
+  //iterate through board to find tile
+  for (int i = 0; i < d; i++){
+    for(int j = 0; j < d; j++){
+      if (tile == board[i][j]){
+        int space = 0;
+          if (((x == (i - 1)) && (j == y)) ||  ((x == (i + 1)) && (j == y)) || ((i == x) && (y == (j - 1))) || ((i == x) && (y == (j + 1)))){
+              board[x][y] = tile;
+              board[i][j] = space;
+              x = i;
+              j = y;
 
-                int space = 0;
-
-                if (((x == (i - 1)) && (j == y)) ||  ((x == (i + 1)) && (j == y)) || ((i == x) && (y == (j - 1))) || ((i == x) && (y == (j + 1)))){
-
-                board[x][y] = tile;
-                board[i][j] = space;
-                x = i;
-                j = y;
-
-                return true;
+              return true;
             }
         }
     }
