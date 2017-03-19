@@ -180,7 +180,8 @@ void init(void)
             board[i][j]= (area - difference);
         }
     }
-    //if board has even dimensions swap 1 and 2
+
+    //if board has even dimensions switch 1 and 2
     if ((d%2) == 0){
         int temp = board[d-1][d-2];
         board[d-1][d-2] = board[d-1][d-3];
@@ -193,13 +194,11 @@ void init(void)
  */
 void draw(void)
 {
-    int n = 0;
     //row
     for (int i = 0; i < d; i++){
         //column
         for (int j = 0; j < d; j++){
 
-            n = (n+1);
             //printing tiles with box
             if (board[i][j]>0){
                 printf("| %2d", board[i][j]);
@@ -218,41 +217,79 @@ void draw(void)
  */
 bool move(int tile)
 {
-  //iterate through board to find tile
-  for (int i = 0; i < d; i++){
-    for(int j = 0; j < d; j++){
-      if (tile == board[i][j]){
-        int space = 0;
-          if (((x == (i - 1)) && (j == y)) ||  ((x == (i + 1)) && (j == y)) || ((i == x) && (y == (j - 1))) || ((i == x) && (y == (j + 1)))){
-              board[x][y] = tile;
-              board[i][j] = space;
-              x = i;
-              j = y;
+    //initialize variable and prevent move if selected tile is outside of the boards range
+    int area = (d*d);
+    if (tile > area - 1 || tile < 1)
+    {
+        return false;
+    }
 
-              return true;
+
+    int row = 0, column = 0;
+    //iterate through the board and find tile value
+    for (int i = 0; i < d; i++)
+    {
+        for (int j = 0; j < d; j++)
+        {
+            if (board[i][j] == tile)
+            {
+                //assign row and column with corresponding values
+                row = i;
+                column = j;
             }
         }
     }
-    // TODO
-}
-return false;
-}
 
+    // Check if adjacent spaces contain blankspace to switch
+    if (row - 1 >= 0 && board[row - 1][column] == 0)
+    {
+        board[row - 1][column] = board[row][column];
+        board[row][column] = 0;
+        return true;
+    }
+    else if (row + 1 < d && board[row + 1][column] == 0)
+    {
+        board[row + 1][column] = board[row][column];
+        board[row][column] = 0;
+        return true;
+    }
+    else if (column - 1 >= 0 && board[row][column - 1] == 0)
+    {
+        board[row][column - 1] = board[row][column];
+        board[row][column] = 0;
+        return true;
+    }
+    else if (column + 1 < d && board[row][column + 1] == 0)
+    {
+        board[row][column + 1] = board[row][column];
+        board[row][column] = 0;
+        return true;
+    }
+    return false;
+}
 /**
  * Returns true if game is won (i.e., board is in winning configuration),
  * else false.
  */
 bool won(void)
 {
-    int n = -1;
+    int n = 1;
+    //iterate through board
     for (int i = 0; i < d; i++) {
-        for (int j = 0; j < d; j++){
-            n = n + 1;
-            if (board[i][j] != n) {
-                return false;
+        for (int j = 0; j < d; j++) {
+            //checks to see if all the values in array have corresponding value else continue game
+            if (i == d - 1 && j == d - 1) {
+                return true;
+            } else {
+                if (board[i][j] == n)
+                {
+                }
+                else {
+                    return false;
+                }
             }
+            n += 1;
         }
     }
-    // TODO
     return true;
 }
