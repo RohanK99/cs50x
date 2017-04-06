@@ -268,5 +268,3 @@ GetString(void)
     // return string
     return minimal;
 }
-
-//testline
