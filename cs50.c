@@ -268,6 +268,3 @@ GetString(void)
     // return string
     return minimal;
 }
-
-//test line
-//hello
