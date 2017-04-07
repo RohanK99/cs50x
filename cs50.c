@@ -270,3 +270,4 @@ GetString(void)
 }
 
 //test line
+//hello
