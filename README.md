@@ -21,3 +21,5 @@ Game using simple programming fundamentals made with scratch: https://scratch.mi
 # Week 4
 1. whodunit.c - whodunit.c uses knowledge of bitmap and hexadecimal colours to change pixel colours to find hidden message. 
 2. resize.c - uses knowledge of bitmap and memory allocation/pointers to resize a bitmap file
+3. recover.c - recovers jpg files from a wiped memory card. Uses knowledge of memory structure. 
+
