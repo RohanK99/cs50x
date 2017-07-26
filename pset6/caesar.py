@@ -10,4 +10,3 @@ def cipher(plaintext, key):
     print(ciphertext)
 
 print(cipher('Aello', 5))
-
