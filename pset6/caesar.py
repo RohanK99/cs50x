@@ -9,4 +9,5 @@ def cipher(plaintext, key):
 
     print(ciphertext)
 
-print(cipher('Aello', 5))
+print(cipher('Hello', 5))
+
